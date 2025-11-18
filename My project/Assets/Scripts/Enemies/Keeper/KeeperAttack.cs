@@ -8,7 +8,7 @@ public class KeeperAttack : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            collision.GetComponent<PlayerController>().life--;
+            collision.GetComponent<PlayerController>().TomarDano();
         }
     }
  

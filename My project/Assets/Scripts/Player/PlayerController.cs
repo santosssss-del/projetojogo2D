@@ -44,32 +44,24 @@ public class PlayerController : MonoBehaviour
             anim.Play("Die", -1);
             SceneManager.LoadScene(levelName);
         }
-    }
-
-    void FixedUpdate()
-    {
-        Move();
-        Attack();
-
-        
 
         if (isGrounded == true)
         {
-             addJumps = 1;
+            addJumps = 1;
             if (Input.GetButtonDown("Jump"))
             {
                 Jump();
             }
-        }
-
-        else
-        {
+        }else{
             if (Input.GetButtonDown("Jump") && addJumps > 0)
             {
                 addJumps--;
                 Jump();
             }
         }
+
+        Move();
+        Attack();
     }
 
     void Move()
@@ -98,6 +90,7 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         anim.SetBool("IsJump", true);
+        isGrounded = false;
     }
 
     void Attack()
@@ -108,6 +101,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void TomarDano(int dano = 1)
+    {
+        life = life - dano;
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Ground")
@@ -116,14 +114,5 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("IsJump", false);
         }
     }
-
-    void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGrounded = false;
-        }
-    }
-
 
 }
